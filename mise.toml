@@ -1,0 +1,20 @@
+[tools]
+python = "3.11"
+
+[env]
+TSROS_CONFIG = "{{config_root}}/config.yaml"
+
+# Mock backend (testing): python mock_tsros.py 8931
+# Tests: python test_client.py   (starts its own mock)
+
+[tasks.server]
+description = "Run the ts-ros MCP server (stdio transport)"
+run = "python server.py"
+
+[tasks.mock]
+description = "Run the mock TS-ROS backend on :8931"
+run = "python mock_tsros.py 8931"
+
+[tasks.test]
+description = "End-to-end test against the mock backend"
+run = "python test_client.py"

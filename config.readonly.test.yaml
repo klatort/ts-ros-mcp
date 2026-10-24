@@ -1,0 +1,17 @@
+# ts-ros-mcp — READ-ONLY variant of the mock config (verifies write blocking).
+base_url: http://127.0.0.1:8931
+allow_writes: false
+timeout: 10
+spec: openapi.example.yaml
+
+auth:
+  type: none
+
+endpoints:
+  health: /health
+  processes: /api/processes
+  execute: /api/processes/{process}/execute
+  execution: /api/executions/{id}
+  executions_search: /api/executions
+  retry: /api/executions/{id}/retry
+  bulk_retry: /api/executions/bulk-retry

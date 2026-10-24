@@ -1,0 +1,42 @@
+# ts-ros-mcp — TEMPLATE for a real TS-ROS deployment.
+# Copy to config.yaml, fill in per-deployment values, never commit credentials.
+
+# Where the client's TS-ROS REST surface is reachable (direct or through their
+# API gateway — IBM DataPower / APIM / Kong / etc. as used by the deployment).
+base_url: https://tsros.examplecustomer.com
+
+# Write tools (execute / retry / bulk) stay disabled until you flip this.
+allow_writes: false
+
+timeout: 30
+
+# If the deployment publishes an OpenAPI/Swagger spec, point this at it (local
+# file or URL). Every operation then becomes callable via
+# tsros_list_operations / tsros_call_operation — no path guessing needed.
+spec: null   # e.g. /path/to/tsros-openapi.yaml or https://.../swagger.json
+
+# Auth — types: none | bearer | header | basic.
+# Only ENV VARIABLE NAMES go here; export the values before starting the server.
+auth:
+  type: bearer
+  token_env: TSROS_TOKEN
+  # type: header
+  # header_name: X-API-Key
+  # token_env: TSROS_API_KEY
+  # type: basic
+  # username_env: TSROS_USER
+  # password_env: TSROS_PASS
+
+# Endpoint templates — TS-ROS paths are per-deployment (each client publishes
+# its own process endpoints), so map them once here after confirming with the
+# client's integration team or the OpenAPI spec. {placeholders} are filled by
+# the tools. Any tool whose key is missing reports "not configured" — it will
+# never fire a guessed path.
+endpoints:
+  health: /health
+  processes: /api/processes
+  execute: /api/processes/{process}/execute
+  execution: /api/executions/{id}
+  executions_search: /api/executions
+  retry: /api/executions/{id}/retry
+  bulk_retry: /api/executions/bulk-retry

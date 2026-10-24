@@ -1,0 +1,62 @@
+# Minimal OpenAPI spec matching the MOCK backend — proves the spec-driven
+# discovery path (tsros_list_operations / tsros_call_operation) end to end.
+openapi: 3.0.3
+info:
+  title: Mock TS-ROS API
+  version: "1.0"
+servers:
+  - url: http://127.0.0.1:8931
+paths:
+  /health:
+    get:
+      operationId: get_health
+      summary: Service liveness
+      responses: {"200": {description: ok}}
+  /api/processes:
+    get:
+      operationId: list_processes
+      summary: List published business processes
+      responses: {"200": {description: ok}}
+  /api/executions:
+    get:
+      operationId: list_executions
+      summary: Search executions (status, since, limit)
+      parameters:
+        - {name: status, in: query, schema: {type: string}}
+        - {name: since, in: query, schema: {type: string}}
+        - {name: limit, in: query, schema: {type: integer}}
+      responses: {"200": {description: ok}}
+  /api/executions/{id}:
+    get:
+      operationId: get_execution
+      summary: Get one execution by id
+      parameters:
+        - {name: id, in: path, required: true, schema: {type: string}}
+      responses: {"200": {description: ok}}
+  /api/processes/{process}/execute:
+    post:
+      operationId: execute_process
+      summary: Execute a business process
+      parameters:
+        - {name: process, in: path, required: true, schema: {type: string}}
+      requestBody:
+        content:
+          application/json:
+            schema: {type: object}
+      responses: {"201": {description: created}}
+  /api/executions/{id}/retry:
+    post:
+      operationId: retry_execution
+      summary: Retry a failed execution
+      parameters:
+        - {name: id, in: path, required: true, schema: {type: string}}
+      responses: {"200": {description: ok}}
+  /api/executions/bulk-retry:
+    post:
+      operationId: bulk_retry
+      summary: Bulk retry executions by status
+      requestBody:
+        content:
+          application/json:
+            schema: {type: object}
+      responses: {"200": {description: ok}}

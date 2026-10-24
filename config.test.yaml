@@ -1,0 +1,17 @@
+# ts-ros-mcp — config for the LOCAL MOCK backend (testing only).
+base_url: http://127.0.0.1:8931
+allow_writes: true          # test config exercises write tools too
+timeout: 10
+spec: openapi.example.yaml  # spec-driven discovery against the mock
+
+auth:
+  type: none
+
+endpoints:
+  health: /health
+  processes: /api/processes
+  execute: /api/processes/{process}/execute
+  execution: /api/executions/{id}
+  executions_search: /api/executions
+  retry: /api/executions/{id}/retry
+  bulk_retry: /api/executions/bulk-retry
