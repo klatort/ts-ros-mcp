@@ -3,9 +3,6 @@
 This is the manual for **coding agents working ON this repo**. Deploying
 agents that just install and drive the server: see README.md.
 
-(To make this file auto-load in agent sessions, copy it to `AGENTS.md` at the
-repo root — the repo owner does this deliberately, see README.)
-
 You are working on **ts-ros-mcp**: an MCP server that lets AI agents manage a
 Thinkskink TS-ROS (Request Orchestrator System) deployment through its
 REST/OpenAPI surface. TS-ROS is a proprietary, per-deployment telecom
