@@ -142,15 +142,12 @@ Run these tool calls in order; expected results:
 
 ## For coding agents working on this repo
 
-Read [`docs/agents-manual.md`](docs/agents-manual.md) first — commands,
-architecture map, hard invariants, the add-a-tool pattern, and the
-verification protocol. To make it auto-load in agent sessions, the repo owner
-promotes it:
-
-```bash
-cp docs/agents-manual.md AGENTS.md
-printf 'See AGENTS.md — the operating manual for this repo.\n' > CLAUDE.md
-```
+**`AGENTS.md`** sits at the repo root and auto-loads in agent sessions
+(Hermes, Claude Code, Codex, …) — commands, architecture map, hard
+invariants, the add-a-tool pattern, and the verification protocol.
+`CLAUDE.md` points to it. `docs/agents-manual.md` is the editable source
+copy: edit that, then re-promote (`cp docs/agents-manual.md AGENTS.md`) so
+the two stay in sync.
 
 ## Files
 
